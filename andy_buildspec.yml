@@ -32,7 +32,7 @@ phases:
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$ECR_IMAGE_REGION.amazonaws.com/anvh/php-fpm:latest
       - echo "3.3 Create image definitions --------"
       - printf "[{\"name\":\"php-fpm\",\"imageUri\":\"$AWS_ACCOUNT_ID.dkr.ecr.$ECR_IMAGE_REGION.amazonaws.com/anvh/php-fpm:latest\"}," >> imagedefinitions.json
-      - printf "{\"name\":\"nginx\",\"imageUri\":\"$AWS_ACCOUNT_ID.dkr.ecr.$ECR_IMAGE_REGION.amazonaws.com/anvh/mynginx:latest\"}]" >> imagedefinitions.json
+      - printf "{\"name\":\"built-nginx\",\"imageUri\":\"$AWS_ACCOUNT_ID.dkr.ecr.$ECR_IMAGE_REGION.amazonaws.com/anvh/mynginx:latest\"}]" >> imagedefinitions.json
       - cat imagedefinitions.json
 
 artifacts:
