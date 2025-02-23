@@ -19,16 +19,16 @@ phases:
   build:
     commands:
       - echo "2. Build step"
-      - docker build -f ./deploy-helper/nginx/Dockerfile.nginx -t nginx .
+      - docker build -f ./deploy-helper/nginx/Dockerfile.nginx -t mynginx .
       - docker build -f Dockerfile -t php-fpm .
   post_build:
     commands:
       - echo 3. "Post build"
       - echo "3.1 Push built-nginx to ECR ---------"
-      - docker tag mynginx:latest $AWS_ACCOUNT_ID.dkr.ecr.$ECR_IMAGE_REGION.amazonaws.com/mynginx:latest
+      - docker tag mynginx:2.0 $AWS_ACCOUNT_ID.dkr.ecr.$ECR_IMAGE_REGION.amazonaws.com/mynginx:latest
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$ECR_IMAGE_REGION.amazonaws.com/mynginx:latest
       - echo "3.2 Push php-fpm to ECR --------"      
-      - docker tag php-fpm:latest $AWS_ACCOUNT_ID.dkr.ecr.$ECR_IMAGE_REGION.amazonaws.com/php-fpm:latest
+      - docker tag php-fpm:2.0 $AWS_ACCOUNT_ID.dkr.ecr.$ECR_IMAGE_REGION.amazonaws.com/php-fpm:latest
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$ECR_IMAGE_REGION.amazonaws.com/php-fpm:latest
       - echo "3.3 Create image definitions --------"
       - printf "[{\"name\":\"php-fpm\",\"imageUri\":\"$AWS_ACCOUNT_ID.dkr.ecr.$ECR_IMAGE_REGION.amazonaws.com/php-fpm:latest\"}," >> imagedefinitions.json
